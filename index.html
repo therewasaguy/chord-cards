@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Chord Cards</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="external/Tone.js-r5/build/Tone.js"></script>
+<!--     <script src="node_modules/teoria/teoria.js"></script>
+    <script src="node_modules/piu/piu.js"></script>
+ -->
+    <script src="src/sampler.js"></script>
+    <script src="src/sounds.js"></script>
+    <script src="src/theory.js"></script>
+
+  </head>
+  <body>
+
+    <div id="container">
+
+      <div id="labelContainer">
+      </div>
+
+      <div id="keyboardContainer">
+        <link rel="stylesheet" type="text/css" href="src/keyboardJS/keyboard-style.css">
+        <script src="src/keyboardJS/keyboard.js"></script>
+        <script>
+          keyboard.initialize();
+          keyboard.setWidth(800);
+        </script>
+      </div>
+
+    </div>
+
+    <script>
+
+      window.onload = function() {
+
+        window.addEventListener('customkeydown', function(e) {
+          var midiNotes = parseNote(e);
+          for (var i = 0; i < midiNotes.length; i++) {
+            Sounds.triggerAttack(midiNotes[i]);
+          }
+        });
+
+        window.addEventListener('customkeyup', function(e) {
+          var midiNotes = parseNote(e);
+
+          for (var i = 0; i < midiNotes.length; i++) {
+            Sounds.triggerRelease(midiNotes[i]);
+          }
+        });
+
+        function parseNote(e) {
+          var row = Number(e.rowIndex);
+          var col = Number(e.colIndex);
+
+          var offset = Theory.triadOffsets[col];
+
+          if (typeof(offset) !== 'undefined') {
+            var noteIndex = row + offset;
+
+            var octave = Math.floor(noteIndex / Theory.key.length) * 12;
+            var midiNote = Theory.key[noteIndex % Theory.key.length] + octave + Theory.root;
+
+            return [midiNote];
+          }
+
+          // otherwise it is a chord
+          else {
+            var midiNotes = [];
+
+            for (var i = 0; i < Theory.triadOffsets.length; i++) {
+              var offset = Theory.triadOffsets[i];
+              var noteIndex = row + offset;
+              var octave = Math.floor(noteIndex / Theory.key.length) * 12;
+              midiNotes[i] = Theory.key[noteIndex % Theory.key.length] + octave + Theory.root;
+            }
+            return midiNotes;
+          }
+
+        }
+
+      };
+
+    </script>
+
+  </body>
+</html>

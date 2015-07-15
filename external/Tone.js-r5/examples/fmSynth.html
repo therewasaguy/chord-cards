@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>SimpleFM</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<script type="text/javascript" src="../build/Tone.js"></script>
+	<script type="text/javascript" src="./scripts/jquery.min.js"></script>
+	<script type="text/javascript" src="./scripts/Notone.GUI.js"></script>
+	<script type="text/javascript" src="./scripts/Interface.js"></script>
+	<script type="text/javascript" src="./scripts/qwerty-hancock.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="./style/examples.css">
+
+	<script type="text/javascript">
+		// jshint ignore: start
+	</script>
+
+</head>
+<body>
+	<div id="Content">
+		<div id="Title">FMSynth</div>
+		<div id="Explanation">	
+			<a href="http://tonejs.org/docs/#SimpleFM">Tone.SimpleFM</a>
+			is composed of two 
+			<a href="http://tonejs.org/docs/#SimpleSynth">Tone.SimpleSynths</a> 
+			where one Tone.SimpleSynth modulates the frequency of a second Tone.SimpleSynth. 
+		</div>
+	</div>
+
+	<script type="text/javascript">			
+		var synth = new Tone.SimpleFM({
+			"modulationIndex" : 12.22
+		}).toMaster();
+	</script>
+
+	<script type="text/javascript">
+
+		$(function(){
+			Notone.config({
+				"search" : false,
+				"expandInDrawer" : true,
+				"hideDrawer" : Interface.isMobile,
+				"drawer" : true,
+				"container" : "body"
+			});
+
+			var fmGUI = Notone.add(synth, "SimpleFM");
+
+			new Interface.Slider({
+				gui : fmGUI,
+				param : "modulationIndex",
+				name : "mod index",
+				max : 100
+			});
+
+			$("<div>", {
+				"id" : "Keyboard"
+			}).appendTo("#Content");
+
+			var keyboard = new QwertyHancock({
+				id: "Keyboard",
+				width: $("#Content").width(),
+				height: 150,
+				octaves: Interface.isMobile ? 1.26 : 3,
+				startNote: "C3",
+				whiteKeyColour: "white",
+				blackKeyColour: "#ECECEC",
+				activeColour : "#FFFC0C"
+			});
+
+			keyboard.keyDown = function (note) {
+			    synth.triggerAttack(note);
+			};
+
+			keyboard.keyUp = function (note) {
+			    synth.triggerRelease();
+			};
+		});
+	</script>
+</body>
+</html>

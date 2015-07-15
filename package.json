@@ -1,0 +1,17 @@
+{
+  "name": "chordcards",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jason Sigal",
+  "license": "MIT",
+  "dependencies": {
+    // "nexusui": "~1.0.5",
+    // "teoria": "~1.11.0",
+    // "tone": "~0.4.2",
+    // "piu": "~1.0.0"
+  }
+}
