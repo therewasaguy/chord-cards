@@ -155,7 +155,7 @@ from lowest (20Hz) to highest (22050Hz). X axis is time. Colors represent amplit
               sketch.cnv = sketch.createCanvas(450, 450);
               // sketch.background(255);
 
-              sketch.colorMode(sketch.HSB, 255);
+              // sketch.colorMode(sketch.HSB, 255);
               // sketch.noLoop();
               sketch.noStroke();
             };
@@ -183,7 +183,7 @@ from lowest (20Hz) to highest (22050Hz). X axis is time. Colors represent amplit
                 }
 
                 var c = value;
-                sketch.fill(c, 255, c);
+                sketch.fill(255 - c);
                 var percent = i / freq.length;
                 var y = percent * sketch.height;
                 sketch.rect(sketch.width - speed, sketch.height - y, speed, sketch.height/freq.length);

@@ -1,6 +1,7 @@
 :host {
   display: block;
   color: green;
+  padding: 20px;
 }
 
 #container {

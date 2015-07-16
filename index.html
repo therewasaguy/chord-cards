@@ -40,7 +40,7 @@
       </div>
 
       <div id="oscContainer" style="width:900px; height:450px; margin:auto; display:flex;">
-        <olos-analyser id="oscilloscope" style="width:450px; padding:50px;"></olos-analyser>
+        <!-- <olos-analyser id="oscilloscope" style="width:450px; padding:50px;"></olos-analyser> -->
         <!-- <olos-spectrograph id="spec" style="width:450px;"></olos-spectrograph> -->
 
       </div>
@@ -51,15 +51,19 @@
       var oscilloscope, spec;
 
       window.onload = function() {
+        var oscContainer = document.getElementById('oscContainer');
+
         audioContext = Tone.context;
 
-        // connect oscilloscope
-        oscilloscope = document.getElementById('oscilloscope');
         spec = document.createElement('olos-spectrograph');
-        spec.style.setProperty('width', '450px');
+        spec.style.setProperty('width', '800px');
+        oscilloscope = document.createElement('olos-analyser');
+        oscilloscope.style.setProperty('width', '800px');
 
-        var oscContainer = document.getElementById('oscContainer');
         oscContainer.appendChild(spec);
+        oscContainer.appendChild(document.createElement('div'));
+
+        oscContainer.appendChild(oscilloscope);
 
         setTimeout(function() {
           spec.resize();
