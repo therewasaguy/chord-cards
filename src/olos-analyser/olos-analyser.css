@@ -1,17 +1,17 @@
 :host {
   display: block;
-  color: green;
+  /*color: green;*/
   padding: 20px;
 }
 
 #container {
 /*  border: 2px solid;
-  border-radius: 25px;
-  box-shadow: 10px 10px 5px #888888;
+  border-radius: 2px;
+*/  box-shadow: 10px 10px 5px #888888;
   padding: 20px;
   background: white;
   opacity: 90%;
-  cursor: pointer;*/
+  cursor: pointer;
   /*position:fixed;*/
 }
 

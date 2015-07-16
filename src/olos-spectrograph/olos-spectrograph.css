@@ -3,7 +3,28 @@
   padding:20px;
 /*  color: green;
   font-family: 'RobotoDraft', sans-serif;
+*/
+
+
+
+}
+
+#defaultCanvas {
+          /*overflow: hidden;*/
+          margin: -22px;
+/*          padding: 0;
+          background:white;
 */}
+
+#container {
+  /*border: 2px solid;*/
+  border-radius: 2px;
+  box-shadow: 10px 10px 5px #888888;
+  padding: 20px;
+  background: white;
+  opacity: 90%;
+  cursor: pointer;
+}
 
 .controls {
   height:20px;

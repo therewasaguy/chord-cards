@@ -15,12 +15,14 @@ from lowest (20Hz) to highest (22050Hz). X axis is time. Colors represent amplit
 <polymer-element name="olos-spectrograph" attributes="inputAudio freqMode ampMode freqMin freqMax binCount smoothing output">
   <template>
     <link rel="stylesheet" href="olos-spectrograph.css"></link>
-    <div class="controls">
-    </div>
 
-    <div id="canvas_container">
-    </div>
+    <div id="container">
+      <div class="controls">
+      </div>
 
+      <div id="canvas_container">
+      </div>
+    </div>
   </template>
 
   <script>
