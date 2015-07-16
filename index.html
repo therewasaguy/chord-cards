@@ -13,6 +13,12 @@
     <script src="src/sampler.js"></script>
     <script src="src/sounds.js"></script>
     <script src="src/theory.js"></script>
+    <script src="src/p5js/lib/p5.min.js"></script>
+
+    <script src="src/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="src/olos-analyser/olos-analyser.html">
+    <link rel="import" href="src/olos-spectrograph/olos-spectrograph.html">
+
 
   </head>
   <body>
@@ -28,14 +34,40 @@
         <script>
           keyboard.initialize();
           keyboard.setWidth(800);
+
+          var audioContext = Tone.context;
         </script>
+      </div>
+
+      <div id="oscContainer" style="width:900px; height:450px; margin:auto; display:flex;">
+        <olos-analyser id="oscilloscope" style="width:450px; padding:50px;"></olos-analyser>
+        <!-- <olos-spectrograph id="spec" style="width:450px;"></olos-spectrograph> -->
+
       </div>
 
     </div>
 
     <script>
+      var oscilloscope, spec;
 
       window.onload = function() {
+        audioContext = Tone.context;
+
+        // connect oscilloscope
+        oscilloscope = document.getElementById('oscilloscope');
+        spec = document.createElement('olos-spectrograph');
+        spec.style.setProperty('width', '450px');
+
+        var oscContainer = document.getElementById('oscContainer');
+        oscContainer.appendChild(spec);
+
+        setTimeout(function() {
+          spec.resize();
+          Tone.Master.output.connect(oscilloscope.analyser);
+          Tone.Master.output.connect(spec.inputAudio);
+
+        }, 1000);
+        // Tone.Master.output.connect(spec.analyser);
 
         window.addEventListener('customkeydown', function(e) {
           var midiNotes = parseNote(e);

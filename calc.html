@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+
+	<head>
+
+		<script src="external/Tone.js-r5/build/Tone.js"></script>
+		<style>
+			body {
+				font-family: sans-serif;
+			}
+		</style>
+
+		<script>
+			var KVAL = 216380;
+			var output;
+
+			function clicked() {
+				var noteName = document.getElementById('note').value;
+				var freq = Tone.Transport.noteToFrequency(noteName);
+				console.log(freq);
+				if (freq === 0 || isNaN(freq) || freq > 20000) {
+					alert('invalid note!');
+				}
+				else {
+					var len = getLength(KVAL, freq);
+					output.innerHTML += '<tr><td>'+noteName + '</td><td> ' + len+'</td><td>  |  22% =  '+ len *0.22 + '</tr>' ;
+					localStorage.setItem('savedOutput', output.innerHTML);
+				}
+			}
+
+			function getLength(kval, freq) {
+				return Math.sqrt(kval / freq);
+			}
+
+			window.onload = function() {
+				output = document.getElementById('output');
+				var prevOutput = localStorage.getItem('savedOutput');
+				if (prevOutput) {
+					output.innerHTML = prevOutput;
+				}
+
+				output.innerHTML = "<tbody><tr><th><b>Note Name</b>  |</th><th>   <b>Length (inches)</b></th></tr></tbody><tbody><tr><td>C6</td><td> 14.379324105867754</td></tr></tbody><tbody><tr><td>D6</td><td> 13.572274657253235</td></tr></tbody><tbody><tr><td>E6</td><td> 12.810521413642062</td></tr></tbody><tbody><tr><td>F6</td><td> 12.44583073618551</td></tr></tbody><tbody><tr><td>G6</td><td> 11.747299931869792</td></tr></tbody><tbody><tr><td>A6</td><td> 11.087974649059305</td></tr></tbody><tbody><tr><td>B6</td><td> 10.465654450912893</td></tr></tbody><tbody><tr><td>C7</td><td> 10.167717584138279</td></tr></tbody>s<tbody><tr><td>D7</td><td> 9.597047446270087</td></tr></tbody><tbody><tr><td>E7</td><td> 9.05840656212178</td></tr></tbody><tbody><tr><td>F7</td><td> 8.800531311056735</td></tr></tbody><tbody><tr><td>G7</td><td> 8.306595442457398</td></tr></tbody><tbody><tr><td>A7</td><td> 7.840382063974364</td></tr></tbody><tbody><tr><td>B7</td><td> 7.4003352317956805</td></tr></tbody><tbody><tr><td>C8</td><td> 7.189662052933877</td></tr></tbody>"
+
+				// output.innerHTML = "<tbody><tr><th><b>Note Name</b>  |</th><th>   <b>Length (inches)</b></th></tr></tbody><tbody><tr><td>C4</td><td> 28.75864821173551</td></tr></tbody><tbody><tr><td>D4</td><td> 27.144549314506467</td></tr></tbody><tbody><tr><td>E4</td><td> 25.621042827284125</td></tr></tbody><tbody><tr><td>F4</td><td> 24.891661472371016</td></tr></tbody><tbody><tr><td>G4</td><td> 23.494599863739584</td></tr></tbody><tbody><tr><td>A4</td><td> 22.17594929811861</td></tr></tbody><tbody><tr><td>Bb4</td><td> 21.54464306852512</td></tr></tbody><tbody><tr><td>B4</td><td> 20.931308901825787</td></tr></tbody><tbody><tr><td>C5</td><td> 20.335435168276558</td></tr></tbody><tbody><tr><td>D5</td><td> 19.19409489254017</td></tr></tbody><tbody><tr><td>E5</td><td> 18.11681312424356</td></tr></tbody><tbody><tr><td>F5</td><td> 17.601062622113467</td></tr></tbody><tbody><tr><td>G5</td><td> 16.613190884914797</td></tr></tbody><tbody><tr><td>A5</td><td> 15.680764127948729</td></tr></tbody><tbody><tr><td>Bb5</td><td> 15.23436321199786</td></tr></tbody><tbody><tr><td>B5</td><td> 14.80067046359136</td></tr></tbody><tbody><tr><td>C6</td><td> 14.379324105867754</td></tr></tbody>";
+			}
+
+		</script>
+
+	</head>
+
+	<body>
+	<!-- 		<h1>Calculate the length to produce a note</h1>
+
+			<h2>Your Material Constant: 216380</h2>
+ -->		
+		<code>
+			Length = Sqrt( MaterialConstant / Freq )
+		</code>
+		<br/><br/>
+
+		<b>Desired Note (i.e. 'A6' 'C7'):</b>
+		<input type="text" name="note" id="note"/>
+		<input type="submit" onclick="clicked()">
+		<br/>
+		<br/>
+
+		<table id="output" style="text-decoration:none;" sortable>
+			<tr><th><b>Note Name</b>  |</th><th>   <b>Length (inches)</b></th></tr>
+		</table>
+
+	</body>
+
+</html>

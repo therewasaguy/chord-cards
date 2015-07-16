@@ -19,10 +19,8 @@ var Sampler = (function(){
 
   // Override the triggerAttack method
   Sampler.prototype.triggerAttack = function(value, time, velocity) {
-    console.log(velocity);
-    
     var diff = this.noteToMidi(value) - this.noteToMidi(this.baseNote);
-    this.pitch = diff;
+    this.pitch = diff - 7;
     velocity = 1 - Math.random()/10;
     this._triggerAttack(null, time, velocity);
   }
